@@ -1,0 +1,20 @@
+name: test-maven
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Maven settings
+        uses: s4u/maven-settings-action@v2.4.1
+        with:
+          mirrors: '[{"id": "a-mirror", "name": "a-mirror", "mirrorOf": "*", "url": "https://dummy.com"}]'
+          servers: |
+            [{
+                "id": "a-mirror",
+                "username": "hello",
+                "password": "world"
+            }]
+      - name: Check settings
+        run: cat ~/.m2/settings.xml
